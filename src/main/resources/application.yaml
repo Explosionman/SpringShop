@@ -1,21 +1,21 @@
-#spring:
-#  jpa:
-#    hibernate:
-#      ddl-auto: validate
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/gb_shop
-#    username: postgres
-##    password: password
-#    password: n7g2phk2
-#  flyway:
-#    baseline-on-migrate: true
-
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    show-sql: true
+      ddl-auto: validate
   datasource:
-    url: jdbc:postgresql://localhost:5432/
+    url: jdbc:postgresql://localhost:5432/gb_shop
     username: postgres
+#    password: password
     password: n7g2phk2
+  flyway:
+    baseline-on-migrate: true
+
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    show-sql: true
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/
+#    username: postgres
+#    password: n7g2phk2
