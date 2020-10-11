@@ -16,6 +16,6 @@ spring:
 #      ddl-auto: create-drop
 #    show-sql: true
 #  datasource:
-#    url: jdbc:postgresql://localhost:5432/
+#    url: jdbc:postgresql://localhost:5432/gb_shop
 #    username: postgres
 #    password: n7g2phk2

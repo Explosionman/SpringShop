@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Products</title>
+    <meta charset="utf-8"/>
+
+    <title>Application</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -17,6 +20,8 @@
             <td><a th:href="@{/products}">Products</a></td>
             <td></td>
             <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></td>
+            <td></td>
+            <td sec:authorize="isAuthenticated()"><a th:href="@{/bucket}">Bucket</a></td>
         </tr>
     </table>
 </div>
@@ -64,7 +69,8 @@
 <br>
 <table width="20%" align="center" th:if="${products.size() > 0}">
     <tr>
-        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a class="btn btn-success" th:href="@{/products/new}">Add Product</a></td>
+        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a class="btn btn-success" th:href="@{/products/new}">Add
+            Product</a></td>
         <td><a class="btn btn-info" th:href="@{/products/filterByMin}">Filter by min price</a></td>
         <td><a class="btn btn-info" th:href="@{/products/filterByMax}">Filter by max price</a></td>
         <td><a class="btn btn-info" th:href="@{/products/filterById}">Filter by ID</a></td>
@@ -84,10 +90,16 @@
         <td th:text="${product.id}"/>
         <td th:text="${product.title}"/>
         <td th:text="${product.price}"/>
-        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a class="btn btn-danger btn-sm" th:href="@{'/products/delete/' + ${product.id}}">Delete</a></td>
-        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a class="btn btn-info btn-sm" th:href="@{'/products/edit/' + ${product.id}}">Edit</a></td>
+        <td><a class="btn btn-success btn-sm" th:href="@{/products/{id}/bucket(id=${product.id})}">Add to bucket</a></td>
+        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a class="btn btn-danger btn-sm"
+                                                                   th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
+        </td>
+        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a class="btn btn-info btn-sm"
+                                                                   th:href="@{'/products/edit/' + ${product.id}}">Edit</a>
+        </td>
     </tr>
-</table><br>
+</table>
+<br>
 
 <hr>
 <br>

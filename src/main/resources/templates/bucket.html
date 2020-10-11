@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h2>Your bucket</h2>
+<h3>All sum -> <b th:text="${bucket.sum}">444.55</b></h3>
+
+<table border="1" align="center">
+    <tr>
+        <td>Title</td>
+        <td>Amount</td>
+        <td>Price</td>
+        <td>Sum</td>
+        <td></td>
+    </tr>
+    <tr th:each="detail : ${bucket.bucketDetails}">
+        <td th:text="${detail.title}">Cheese</td>
+        <td th:text="${detail.amount}">2</td>
+        <td th:text="${detail.price}">12.0</td>
+        <td th:text="${detail.sum}">24.0</td>
+        <!--        "@{'bucket/remove/' + ${detail.productId}}"-->
+        <!--        "@{/products/{id}/bucket/remove(id=${product.id})}"-->
+        <td class="btn btn-danger btn-sm" sec:authorize="isAuthenticated()"><a
+                th:href="@{'bucket/remove/' + ${detail.getProductId()}}">-</a></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

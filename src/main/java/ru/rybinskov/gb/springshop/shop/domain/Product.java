@@ -29,4 +29,9 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 
+    public Product(String title, Double price) {
+        this.title = title;
+        this.price = price;
+    }
+
 }
