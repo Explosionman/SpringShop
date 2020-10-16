@@ -14,6 +14,10 @@ public interface BucketService {
 
     void deleteFromUserBucket(Long productId, String username);
 
+    void deleteAllFromUserBucket(Long productId, String username);
+
+    void addToUserBucket(Long productId, String username);
+
     BucketDto getBucketByUser(String name);
 
 }

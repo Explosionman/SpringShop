@@ -42,4 +42,18 @@ public class BucketController {
         bucketService.deleteFromUserBucket(id, principal.getName());
         return "redirect:/bucket";
     }
+
+    @GetMapping("/remove-all/{id}")
+    public String deleteAllPiecesFromBucket(Model model, @PathVariable("id") Long id, Principal principal) {
+        System.out.println("Попали в метод ремув");
+        bucketService.deleteAllFromUserBucket(id, principal.getName());
+        return "redirect:/bucket";
+    }
+
+    @GetMapping("/plus/{id}")
+    public String addOneToBucket(@PathVariable Long id, Principal principal) {
+        bucketService.addToUserBucket(id, principal.getName());
+        return "redirect:/bucket";
+    }
+
 }

@@ -2,8 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Bucket</title>
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
 <h2>Your bucket</h2>
 <h3>All sum -> <b th:text="${bucket.sum}">444.55</b></h3>
@@ -22,9 +34,15 @@
         <td th:text="${detail.price}">12.0</td>
         <td th:text="${detail.sum}">24.0</td>
         <!--        "@{'bucket/remove/' + ${detail.productId}}"-->
+
         <!--        "@{/products/{id}/bucket/remove(id=${product.id})}"-->
-        <td class="btn btn-danger btn-sm" sec:authorize="isAuthenticated()"><a
-                th:href="@{'bucket/remove/' + ${detail.getProductId()}}">-</a></td>
+        <td sec:authorize="isAuthenticated()"><a class="badge badge-success"
+                                                 th:href="@{'bucket/plus/' + ${detail.getProductId()}}"> + </a></td>
+        <td sec:authorize="isAuthenticated()"><a class="badge badge-warning"
+                                                 th:href="@{'bucket/remove/' + ${detail.getProductId()}}"> - </a></td>
+        <td sec:authorize="isAuthenticated()"><a class="badge badge-danger"
+                                                 th:href="@{'bucket/remove-all/' + ${detail.getProductId()}}"> remove
+            all</a></td>
     </tr>
 </table>
 

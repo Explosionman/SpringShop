@@ -98,5 +98,4 @@ public class ProductController {
         productService.addToUserBucket(id, principal.getName());
         return "redirect:/products";
     }
-
 }

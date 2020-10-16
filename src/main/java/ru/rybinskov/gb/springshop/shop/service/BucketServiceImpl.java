@@ -1,6 +1,7 @@
 package ru.rybinskov.gb.springshop.shop.service;
 
 import org.springframework.stereotype.Service;
+import ru.rybinskov.gb.springshop.shop.aspect.MeasureMethod;
 import ru.rybinskov.gb.springshop.shop.dao.BucketDao;
 import ru.rybinskov.gb.springshop.shop.dao.ProductDao;
 import ru.rybinskov.gb.springshop.shop.domain.Bucket;
@@ -8,18 +9,17 @@ import ru.rybinskov.gb.springshop.shop.domain.Product;
 import ru.rybinskov.gb.springshop.shop.domain.User;
 import ru.rybinskov.gb.springshop.shop.dto.BucketDetailDto;
 import ru.rybinskov.gb.springshop.shop.dto.BucketDto;
+import ru.rybinskov.gb.springshop.shop.mapper.BucketMapper;
 
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class BucketServiceImpl implements BucketService {
 
+    private final BucketMapper mapper = BucketMapper.MAPPER;
     private final BucketDao bucketRepository;
     private final ProductDao productRepository;
     private final UserService userService;
@@ -57,24 +57,45 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
+    @Transactional
+    @MeasureMethod
     public void deleteFromUserBucket(Long productId, String username) {
-        BucketDto bucket = getBucketByUser(username);
-        List<BucketDetailDto> detailDtoList = bucket.getBucketDetails();
-        Map<Long, BucketDetailDto> mapByProductId = new HashMap<>();
-        for (BucketDetailDto bucketDetailDto : detailDtoList) {
-            Product product = productRepository.getOne(productId);
-            if (bucketDetailDto.getProductId().equals(product.getId())) {
-                bucketDetailDto.setAmount(bucketDetailDto.getAmount() - 1.0);
-                bucketDetailDto.setSum(bucketDetailDto.getSum() - product.getPrice());
-            }
-            mapByProductId.put(bucketDetailDto.getProductId(), bucketDetailDto);
-        }
-        bucket.setBucketDetails(new ArrayList<>(mapByProductId.values()));
-        bucket.aggregate();
-        //всё минусуется, но не могу сохранить данные, чтобы они обновились после редиректа....
-        //Подскажите плз, как?
-        //bucketRepository.save()....................
+        User user = userService.findByName(username);
+        Bucket bucket = user.getBucket();
+        List<Product> products = bucket.getProducts();
+        List<Product> newProductsList = products == null ? new ArrayList<>() : new ArrayList<>(products);
+        newProductsList.remove(productRepository.getOne(productId));
+        bucket.setProducts(newProductsList);
+        bucketRepository.save(bucket);
     }
+
+    @Override
+    @Transactional
+    @MeasureMethod
+    public void addToUserBucket(Long productId, String username) {
+        User user = userService.findByName(username);
+        addProducts(user.getBucket(), Collections.singletonList(productId));
+    }
+
+    @Override
+    @Transactional
+    @MeasureMethod
+    public void deleteAllFromUserBucket(Long productId, String username) {
+        User user = userService.findByName(username);
+        Bucket bucket = user.getBucket();
+        List<Product> products = bucket.getProducts();
+        List<Product> productIds = new ArrayList<>();
+        for (Product prod : products) {
+            if (prod.getId().equals(productId)) {
+                productIds.add(prod);
+            }
+        }
+        List<Product> newProductsList = products == null ? new ArrayList<>() : new ArrayList<>(products);
+        newProductsList.removeAll(productIds);
+        bucket.setProducts(newProductsList);
+        bucketRepository.save(bucket);
+    }
+
 
     @Override
     public BucketDto getBucketByUser(String name) {
