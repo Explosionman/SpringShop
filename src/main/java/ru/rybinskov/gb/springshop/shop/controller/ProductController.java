@@ -3,12 +3,18 @@ package ru.rybinskov.gb.springshop.shop.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.rybinskov.gb.springshop.shop.domain.Bucket;
 import ru.rybinskov.gb.springshop.shop.domain.Product;
+import ru.rybinskov.gb.springshop.shop.domain.User;
+import ru.rybinskov.gb.springshop.shop.dto.BucketDto;
+import ru.rybinskov.gb.springshop.shop.service.BucketService;
 import ru.rybinskov.gb.springshop.shop.service.ProductServiceImpl;
 import ru.rybinskov.gb.springshop.shop.service.SessionObjectHolder;
+import ru.rybinskov.gb.springshop.shop.service.UserService;
 
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -16,15 +22,23 @@ import java.util.List;
 public class ProductController {
 
     private final ProductServiceImpl productService;
+    private final UserService userService;
+    private final BucketService bucketService;
 
-    public ProductController(ProductServiceImpl productService, SessionObjectHolder sessionObjectHolder) {
+    public ProductController(ProductServiceImpl productService, UserService userService, BucketService bucketService, SessionObjectHolder sessionObjectHolder) {
         this.productService = productService;
+        this.userService = userService;
+        this.bucketService = bucketService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, Principal principal) {
+        BucketDto bucketDto = bucketService.getBucketByUser(principal.getName());
+        User user = userService.findByName(principal.getName());
         List<Product> products = productService.getAll();
         model.addAttribute("products", products);
+        model.addAttribute("bucket", bucketDto);
+        model.addAttribute("user_bucket", user.getBucket());
         return "products";
     }
 
@@ -91,8 +105,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/bucket")
-    public String addBucket(@PathVariable Long id, Principal principal){
-        if(principal == null){
+    public String addBucket(@PathVariable Long id, Principal principal) {
+        if (principal == null) {
             return "redirect:/products";
         }
         productService.addToUserBucket(id, principal.getName());

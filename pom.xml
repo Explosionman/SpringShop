@@ -35,6 +35,43 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!--Web Socket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <!--WEBJARS and JQUERY-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>sockjs-client</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>stomp-websocket</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <!--web services-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>

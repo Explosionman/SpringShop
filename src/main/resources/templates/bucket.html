@@ -33,9 +33,7 @@
         <td th:text="${detail.amount}">2</td>
         <td th:text="${detail.price}">12.0</td>
         <td th:text="${detail.sum}">24.0</td>
-        <!--        "@{'bucket/remove/' + ${detail.productId}}"-->
 
-        <!--        "@{/products/{id}/bucket/remove(id=${product.id})}"-->
         <td sec:authorize="isAuthenticated()"><a class="badge badge-success"
                                                  th:href="@{'bucket/plus/' + ${detail.getProductId()}}"> + </a></td>
         <td sec:authorize="isAuthenticated()"><a class="badge badge-warning"

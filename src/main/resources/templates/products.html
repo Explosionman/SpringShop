@@ -25,6 +25,26 @@
         </tr>
     </table>
 </div>
+<div align="right">
+    <table>
+        <tr>
+            <td>Amount articles: </td>
+            <td th:text="${bucket.getAmountProducts()}">#</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Amount products: </td>
+            <td></td>
+            <td th:text="${user_bucket.getProducts().size()}">#</td>
+        </tr>
+        <tr>
+            <td>Sum: </td>
+            <td></td>
+            <td th:text="${bucket.getSum()}">#</td>
+        </tr>
+    </table>
+
+</div>
 
 
 <h1 align="center">All products</h1>
@@ -90,7 +110,8 @@
         <td th:text="${product.id}"/>
         <td th:text="${product.title}"/>
         <td th:text="${product.price}"/>
-        <td><a class="btn btn-success btn-sm" th:href="@{/products/{id}/bucket(id=${product.id})}">Add to bucket</a></td>
+        <td><a class="btn btn-success btn-sm" th:href="@{/products/{id}/bucket(id=${product.id})}">Add to bucket</a>
+        </td>
         <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a class="btn btn-danger btn-sm"
                                                                    th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
         </td>
