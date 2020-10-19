@@ -1,5 +1,8 @@
 package ru.rybinskov.gb.springshop.shop.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -104,12 +107,22 @@ public class ProductController {
         return "redirect:/products/";
     }
 
-    @GetMapping("/{id}/bucket")
-    public String addBucket(@PathVariable Long id, Principal principal) {
-        if (principal == null) {
-            return "redirect:/products";
-        }
-        productService.addToUserBucket(id, principal.getName());
-        return "redirect:/products";
+    // @GetMapping("/{id}/bucket")
+    @MessageMapping("/{id}/bucket")
+//    public String addBucket(@PathVariable Long id, Principal principal) {
+//        if (principal == null) {
+//            return "redirect:/products";
+//        }
+//        productService.addToUserBucket(id, principal.getName());
+//        return "redirect:/products";
+//    }
+    public void addToBucket(Product product, Principal principal) {
+        productService.addToUserBucket(product.getId(), principal.getName());
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> addProductToBucket(Product product, Principal principal) {
+        productService.addToUserBucket(product.getId(), principal.getName());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

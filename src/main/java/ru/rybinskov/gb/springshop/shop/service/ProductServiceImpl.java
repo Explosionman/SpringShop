@@ -1,5 +1,6 @@
 package ru.rybinskov.gb.springshop.shop.service;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rybinskov.gb.springshop.shop.dao.ProductDao;
@@ -18,11 +19,13 @@ public class ProductServiceImpl {
     private final ProductDao productJpaDAO;
     private final UserService userService;
     private final BucketService bucketService;
+    private final SimpMessagingTemplate template;
 
-    public ProductServiceImpl(ProductDao productJpaDAO, UserService userService, BucketService bucketService) {
+    public ProductServiceImpl(ProductDao productJpaDAO, UserService userService, BucketService bucketService, SimpMessagingTemplate template) {
         this.productJpaDAO = productJpaDAO;
         this.userService = userService;
         this.bucketService = bucketService;
+        this.template = template;
     }
 
     @Transactional
@@ -91,5 +94,6 @@ public class ProductServiceImpl {
         } else {
             bucketService.addProducts(bucket, Collections.singletonList(productId));
         }
+        template.convertAndSend("/topic/products", bucketService.getBucketByUser(username));
     }
 }
