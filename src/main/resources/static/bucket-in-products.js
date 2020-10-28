@@ -25,17 +25,20 @@ $(function () {
 
 // отправка сообщения на сервер
 function sendContent() {
-    stomp.send("/app/products/{id}/bucket", {}, JSON.stringify({
-        'id': $("#id").val()
+    stomp.send("products/{id}/bucket", {}, JSON.stringify({
+        'id': $("#id").val(),
         'title': $("#title").val(),
         'price': $("#price").val()
     }));
+    console.log('Sending');
 }
 
 // рендер сообщения, полученного от сервера
 function renderItem(bucketDto) {
-    var product = JSON.parse(bucketDto.body);
-    $("#amountId").setText(bucketDto.getAmountProducts());
-    $("#sumtId").setText(bucketDto.getSum());
-
+console.log('We are in render now');
+    var bucket = JSON.parse(bucketDto.body);
+    amountId.innerText=bucket.amountProducts;
+    sumId.innerText=bucket.sum;
+    console.log('my bucket amount products: ' + bucket.amountProducts);
+    console.log('my bucket sum: ' + bucket.sum);
 }

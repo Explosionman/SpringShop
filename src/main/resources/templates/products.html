@@ -14,9 +14,9 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
-    <!--products.js dependance: jquery-->
+    <!--products.js dependence: jquery-->
     <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="bucket_in_products.js"></script>
+    <script src="bucket-in-products.js"></script>
 </head>
 <body>
 
@@ -37,18 +37,15 @@
     <table>
         <tr>
             <td>Amount articles:</td>
-            <td id="amountId" th:text="${bucket.getAmountProducts()}">#</td>
+<!--            <td id="amountId" th:text="${bucket.getAmountProducts()}">#</td>-->
+            <td id="amountId"></td>
             <td></td>
-        </tr>
-        <tr>
-            <td>Amount products:</td>
-            <td></td>
-            <td th:text="${user_bucket.getProducts().size()}">#</td>
         </tr>
         <tr>
             <td>Sum:</td>
             <td></td>
-            <td id="sumID" th:text="${bucket.getSum()}">#</td>
+<!--            <td id="sumID" th:text="${bucket.getSum()}">#</td>-->
+            <td id="sumId"></td>
         </tr>
     </table>
 

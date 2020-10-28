@@ -107,22 +107,18 @@ public class ProductController {
         return "redirect:/products/";
     }
 
-    // @GetMapping("/{id}/bucket")
-    @MessageMapping("/{id}/bucket")
-//    public String addBucket(@PathVariable Long id, Principal principal) {
-//        if (principal == null) {
-//            return "redirect:/products";
-//        }
-//        productService.addToUserBucket(id, principal.getName());
-//        return "redirect:/products";
-//    }
-    public void addToBucket(Product product, Principal principal) {
-        productService.addToUserBucket(product.getId(), principal.getName());
+    @GetMapping("/{id}/bucket")
+    public String addToBucket(@PathVariable Long id, Principal principal) {
+        if (principal == null) {
+            return "redirect:/products";
+        }
+        productService.addToUserBucket(id, principal.getName());
+        ResponseEntity.status(HttpStatus.CREATED).build();
+        return "redirect:/products";
     }
 
-    @PostMapping
-    public ResponseEntity<Void> addProductToBucket(Product product, Principal principal) {
+    @MessageMapping("/{id}/bucket")
+    public void messageAddProduct(Product product, Principal principal) {
         productService.addToUserBucket(product.getId(), principal.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
