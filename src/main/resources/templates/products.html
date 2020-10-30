@@ -29,7 +29,7 @@
     <table>
         <tr>
             <td>Amount articles: </td>
-            <td th:text="${bucket.getAmountProducts()}">#</td>
+          <td th:text="${bucket.getAmountProducts()}">#</td>
             <td></td>
         </tr>
         <tr>
@@ -93,7 +93,6 @@
             Product</a></td>
         <td><a class="btn btn-info" th:href="@{/products/filterByMin}">Filter by min price</a></td>
         <td><a class="btn btn-info" th:href="@{/products/filterByMax}">Filter by max price</a></td>
-        <td><a class="btn btn-info" th:href="@{/products/filterById}">Filter by ID</a></td>
     </tr>
 </table>
 <br>
@@ -101,13 +100,13 @@
 <table width="30%" align="center">
     <thead class="thead-dark">
     <tr>
-        <td>ID</td>
+        <td hidden>ID</td>
         <td>Title</td>
         <td>Price</td>
     </tr>
     </thead>
     <tr th:each="product : ${products}">
-        <td th:text="${product.id}"/>
+        <td hidden th:text="${product.id}"/>
         <td th:text="${product.title}"/>
         <td th:text="${product.price}"/>
         <td><a class="btn btn-success btn-sm" th:href="@{/products/{id}/bucket(id=${product.id})}">Add to bucket</a>

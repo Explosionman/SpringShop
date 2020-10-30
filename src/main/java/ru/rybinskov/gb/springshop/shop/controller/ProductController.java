@@ -49,32 +49,37 @@ public class ProductController {
     }
 
     @GetMapping("/filterByMin")
-    public String filterByMin(Model model) {
+    public String filterByMin(Model model, Principal principal) {
         List<Product> products = productService.getAllFilteredByMinPrice();
+        BucketDto bucketDto = bucketService.getBucketByUser(principal.getName());
+        User user = userService.findByName(principal.getName());
         model.addAttribute("products", products);
+        model.addAttribute("bucket", bucketDto);
+        model.addAttribute("user_bucket", user.getBucket());
         return "products";
     }
 
     @GetMapping("/filterByMax")
-    public String filterByMax(Model model) {
+    public String filterByMax(Model model, Principal principal) {
         List<Product> products = productService.getAllFilteredByMaxPrice();
+        BucketDto bucketDto = bucketService.getBucketByUser(principal.getName());
+        User user = userService.findByName(principal.getName());
         model.addAttribute("products", products);
-        return "products";
-    }
-
-    @GetMapping("/filterById")
-    public String filterById(Model model) {
-        List<Product> products = productService.getAll();
-        model.addAttribute("products", products);
+        model.addAttribute("bucket", bucketDto);
+        model.addAttribute("user_bucket", user.getBucket());
         return "products";
     }
 
     @GetMapping(params = {"startPrice", "endPrice"})
-    public String productsByPrice(Model model,
+    public String productsByPrice(Model model, Principal principal,
                                   @RequestParam(name = "startPrice") Long startPrice,
                                   @RequestParam(name = "endPrice") Long endPrice) {
         List<Product> products = productService.getPriceByRange(startPrice, endPrice);
+        BucketDto bucketDto = bucketService.getBucketByUser(principal.getName());
+        User user = userService.findByName(principal.getName());
         model.addAttribute("products", products);
+        model.addAttribute("bucket", bucketDto);
+        model.addAttribute("user_bucket", user.getBucket());
         return "products";
     }
 
