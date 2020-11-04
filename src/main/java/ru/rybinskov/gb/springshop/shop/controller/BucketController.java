@@ -17,13 +17,10 @@ import java.security.Principal;
 public class BucketController {
 
     private final BucketService bucketService;
-    private final ProductServiceImpl productService;
 
-    public BucketController(BucketService bucketService, ProductServiceImpl productService) {
+    public BucketController(BucketService bucketService) {
         this.bucketService = bucketService;
-        this.productService = productService;
     }
-
 
     @RequestMapping(method = RequestMethod.GET)
     public String aboutBucket(Model model, Principal principal) {
@@ -38,14 +35,12 @@ public class BucketController {
 
     @GetMapping("/remove/{id}")
     public String deleteOnePieceFromBucket(Model model, @PathVariable("id") Long id, Principal principal) {
-        System.out.println("Попали в метод ремув");
         bucketService.deleteFromUserBucket(id, principal.getName());
         return "redirect:/bucket";
     }
 
     @GetMapping("/remove-all/{id}")
     public String deleteAllPiecesFromBucket(Model model, @PathVariable("id") Long id, Principal principal) {
-        System.out.println("Попали в метод ремув");
         bucketService.deleteAllFromUserBucket(id, principal.getName());
         return "redirect:/bucket";
     }
@@ -55,5 +50,4 @@ public class BucketController {
         bucketService.addToUserBucket(id, principal.getName());
         return "redirect:/bucket";
     }
-
 }

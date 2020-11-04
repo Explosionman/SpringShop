@@ -15,7 +15,7 @@ public interface BucketMapper {
     Bucket toBucket(BucketDto dto);
 
     @InheritInverseConfiguration
-    BucketDto fromProduct(Bucket bucket);
+    BucketDto fromBucket(Bucket bucket);
 
     List<Bucket> toBucketList(List<BucketDto> bucketDtos);
 

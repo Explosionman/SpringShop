@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.rybinskov.gb.springshop.shop.domain.Role;
 import ru.rybinskov.gb.springshop.shop.service.UserService;
 
@@ -30,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/products").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name(), Role.MANAGER.name())
-                .antMatchers("/users","/users/**").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/products").hasAnyAuthority(Role.ROLE_ADMIN.name(), Role.ROLE_USER.name(), Role.ROLE_MANAGER.name())
+                .antMatchers("/users","/users/**").hasAuthority(Role.ROLE_ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -39,7 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/auth")
                 .permitAll()
                 .and()
-                .httpBasic();
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .and()
+                .csrf().disable();
     }
 
     @Bean

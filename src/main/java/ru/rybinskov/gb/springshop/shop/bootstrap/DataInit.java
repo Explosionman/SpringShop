@@ -22,15 +22,15 @@ public class DataInit implements CommandLineRunner {
     static {
         USER.setName("User");
         USER.setPassword("123");
-        USER.setRole(Role.USER);
+        USER.setRole(Role.ROLE_USER);
 
         MANAGER.setName("Manager");
         MANAGER.setPassword("123");
-        MANAGER.setRole(Role.MANAGER);
+        MANAGER.setRole(Role.ROLE_MANAGER);
 
         ADMIN.setName("Admin");
         ADMIN.setPassword("admin");
-        ADMIN.setRole(Role.ADMIN);
+        ADMIN.setRole(Role.ROLE_ADMIN);
     }
 
     public DataInit(ProductDao productJpaDAO, UserDao userDao) {
