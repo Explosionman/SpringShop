@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-
+    <link rel="stylesheet" href="style.css">
     <title>Application</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -11,75 +11,54 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
 
-<div id="nav-menu" align="center">
-    <table>
-        <tr>
-            <td><a th:href="@{/}">Home</a></td>
-            <td></td>
-            <td><a th:href="@{/products}">Products</a></td>
-            <td></td>
-            <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></td>
-            <td></td>
-            <td sec:authorize="isAuthenticated()"><a th:href="@{/bucket}">Bucket</a></td>
-        </tr>
-    </table>
-</div>
 <div align="right">
     <table>
-<!--        <tr>-->
-<!--            <td>Amount articles: </td>-->
-<!--          <td th:text="${bucket.getAmountProducts()}">#</td>-->
-<!--            <td></td>-->
-<!--        </tr>-->
+        <tr>
+            <td>Amount articles: </td>
+          <td th:text="${bucket.getAmountProducts()}">#</td>
+            <td></td>
+        </tr>
 <!--        <tr>-->
 <!--            <td>Amount products: </td>-->
 <!--            <td></td>-->
 <!--            <td th:text="${user_bucket.getProducts().size()}">#</td>-->
 <!--        </tr>-->
-<!--        <tr>-->
-<!--            <td>Sum: </td>-->
-<!--            <td></td>-->
-<!--            <td th:text="${bucket.getSum()}">#</td>-->
-<!--        </tr>-->
+        <tr>
+            <td>Sum: </td>
+            <td></td>
+            <td th:text="${bucket.getSum()}">#</td>
     </table>
-
 </div>
 
-
-<h1 align="center">All products</h1>
-<br>
-<table align="center" border="1" width="20%">
-    <tr>
+<table align="center" width="20%">
+    <h6 align="center">Find products by price:</h6>
         <td>
             <form th:action="@{/products}" method="get">
-                <h5 align="center">Find products by price:</h5>
-                <br>
-                <table>
                     <tr>
-                        <td>
-                            Start price:
+                        <td width="15%">
+                            From:
                         </td>
-                        <td align="right">
+                        <td>
                             <input type="number" name="startPrice" value="">
                         </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            End price:
+                        <td>
+
+                        </td>
+
+                        <td>
+                            to:
                         </td>
                         <td>
                             <input type="number" name="endPrice" value=""><br>
                         </td>
-                    </tr>
-                    <tr>
+
                         <td></td>
                         <td align="right">
                             <button class="btn btn-success" type="submit">find</button>
                         </td>
                     </tr>
-                </table>
-
             </form>
         </td>
     </tr>
@@ -101,8 +80,8 @@
     <thead class="thead-dark">
     <tr>
         <td hidden>ID</td>
-        <td>Title</td>
-        <td>Price</td>
+        <td><b>Title</b></td>
+        <td><b>Price</b></td>
     </tr>
     </thead>
     <tr th:each="product : ${products}">
@@ -119,11 +98,15 @@
         </td>
     </tr>
 </table>
-<br>
 
 <hr>
-<br>
-<h6 align="center">...</h6>
+<div class="footer" align="center">
+    <ul><b>Контактные данные:</b>
+        <li class="contact_ul">0(000)000-9999</li>
+        <li class="contact_ul">rybinskov@gmail.com</li>
+    </ul>
+    <p class="paragraph">&copy;&nbsp;Все права защищены</p>
+</div>
 
 </body>
 </html>

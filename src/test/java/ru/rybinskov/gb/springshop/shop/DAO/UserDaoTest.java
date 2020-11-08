@@ -57,7 +57,7 @@ class UserDaoTest {
         Assertions.assertEquals("testUser", actualUser.getName());
         Assertions.assertEquals("testUser", actualUser.getPassword());
         Assertions.assertEquals("test@test.ru", actualUser.getEmail());
-        Assertions.assertEquals(Role.ROLE_ADMIN, actualUser.getRole());
+        Assertions.assertEquals(Role.ADMIN, actualUser.getRole());
 
     }
 }
