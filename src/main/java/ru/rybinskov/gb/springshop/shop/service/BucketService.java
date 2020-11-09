@@ -20,4 +20,5 @@ public interface BucketService {
 
     BucketDto getBucketByUser(String name);
 
+    void commitBucketToOrder(String username);
 }

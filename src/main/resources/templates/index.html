@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Almost finished store</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
 <h2><a th:href="@{/products}">Products</a></h2>
 <h2 th:text="${msg}"/>
 
+<div class="wrapper exmpl">
+    <img src="images/2.jpg">
+</div>
+
+<hr>
+<div class="footer" align="center">
+    <ul><b>Контактные данные:</b>
+        <li class="contact_ul">0(000)000-9999</li>
+        <li class="contact_ul">rybinskov@gmail.com</li>
+    </ul>
+    <p class="paragraph">&copy;&nbsp;Все права защищены</p>
+</div>
 
 </body>
 </html>

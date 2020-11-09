@@ -16,9 +16,9 @@
 <div align="right">
     <table>
         <tr>
-            <td>Amount articles: </td>
-          <td th:text="${bucket.getAmountProducts()}">#</td>
-            <td></td>
+            <td align="left">Amount articles: </td>
+          <td align="right" th:text="${bucket.getAmountProducts()}">#</td>
+
         </tr>
 <!--        <tr>-->
 <!--            <td>Amount products: </td>-->
@@ -26,9 +26,8 @@
 <!--            <td th:text="${user_bucket.getProducts().size()}">#</td>-->
 <!--        </tr>-->
         <tr>
-            <td>Sum: </td>
-            <td></td>
-            <td th:text="${bucket.getSum()}">#</td>
+            <td align="left">Sum: </td>
+            <td align="right" th:text="${bucket.getSum()}">#</td>
     </table>
 </div>
 
